@@ -1,6 +1,6 @@
 #creation of s3 bucket
 resource "aws_s3_bucket" "state" {
-  bucket = "python-state-s3-bucket"
+  bucket = "python-state-s3-bucket-pp"
   tags = {
     Name = "Terraform State Bucket"
   }

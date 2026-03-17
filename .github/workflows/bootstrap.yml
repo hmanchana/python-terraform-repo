@@ -1,6 +1,6 @@
 name: BootStrap-Pipeline
 on: 
-    workflow_dispatch:
+    workflow_dispatch
 jobs:
     bootstrap:
         runs-on: ubuntu-latest

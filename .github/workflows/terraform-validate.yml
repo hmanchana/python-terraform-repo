@@ -1,0 +1,24 @@
+name: terraform-validate
+on:
+    workflow_call
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - name: code checkout
+              uses: actions/checkout@v6
+            - name: setup terraform
+              uses: hashicorp/setup-terraform@v4
+            - name: terraform format
+              working-directory: main-project
+              run:  terraform fmt -check
+            - name: terraform init
+              working-directory: main-project
+              run: terraform init -backend=false
+            - name: terraform validate
+              working-directory: main-project
+              run:  terraform validate
+            - name: checkov
+              uses: bridgecrewio/checkov-action@v12
+              with:
+                directory: main-project

@@ -1,0 +1,20 @@
+name: main file
+on:
+    push:
+        branches: 
+            - master
+jobs:
+    validate:
+        uses: ./.github/workflows/terraform-validate.yml
+    plan-dev:
+        needs: validate
+        uses: ./.github/workflows/terraform-plan.yml
+        with:
+            environment: dev
+    apply-dev:
+        needs: plan-dev
+        uses: ./.github/workflows/terraform-apply.yml
+        with:
+            environment: dev
+        
+        

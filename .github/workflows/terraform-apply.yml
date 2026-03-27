@@ -1,0 +1,33 @@
+name: terraform apply
+on:
+    workflow_call:
+        inputs:
+            environment:
+                required: true
+                type: string
+jobs:
+    apply:
+        runs-on: ubuntu-latest
+        steps:
+            - name: code checkout
+              uses: actions/checkout@v6
+            - name: setup terraform
+              uses: hashicorp/setup-terraform@v4
+            - name: authenticate aws
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+                aws-region: ${{ secrets.AWS_REGION }}
+            - name: download artifact
+              uses: actions/download-artifact@v8
+              with:
+                name: tfplan
+                path: main-project
+            - name: Terraform Init
+              working-directory: main-project
+              run: terraform init
+            - name: Terraform Apply
+              working-directory: main-project
+              run: terraform apply -auto-approve tfplan
+
+            

@@ -1,6 +1,6 @@
 resource "aws_key_pair" "main" {
   key_name   = "main-key"
-  public_key = file("~/.ssh/main-key.pub")
+  public_key = file("${path.module}/main-key.pub")
 }
 
 module "vpc" {

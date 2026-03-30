@@ -2,7 +2,7 @@ name: main file
 on:
     push:
         branches: 
-            - master
+          - master
 jobs:
     validate:
         uses: ./.github/workflows/terraform-validate.yml

@@ -11,10 +11,17 @@ jobs:
         uses: ./.github/workflows/terraform-plan.yml
         with:
             environment: dev
+        secrets:
+            AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+            AWS_REGION: ${{ secrets.AWS_REGION }}
+                
     apply-dev:
         needs: plan-dev
         uses: ./.github/workflows/terraform-apply.yml
         with:
             environment: dev
+        secrets:
+            AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+            AWS_REGION: ${{ secrets.AWS_REGION }}
         
         

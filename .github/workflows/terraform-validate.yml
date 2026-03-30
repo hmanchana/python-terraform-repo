@@ -22,5 +22,5 @@ jobs:
               uses: bridgecrewio/checkov-action@v12
               with:
                 directory : main-project
-                config-file: .checkov-prod.yml
+                config_file: .checkov-dev.yml
 

@@ -8,8 +8,10 @@ permissions:
   contents: read
 jobs:
     validate:
+        if: "!contains(github.event.head_commit.message, 'destroy')"
         uses: ./.github/workflows/terraform-validate.yml
     plan-dev:
+        if: "!contains(github.event.head_commit.message, 'destroy')"
         needs: validate
         uses: ./.github/workflows/terraform-plan.yml
         with:
@@ -19,6 +21,7 @@ jobs:
             AWS_REGION: ${{ secrets.AWS_REGION }}
                 
     apply-dev:
+        if: "!contains(github.event.head_commit.message, 'destroy')"
         needs: plan-dev
         uses: ./.github/workflows/terraform-apply.yml
         with:
